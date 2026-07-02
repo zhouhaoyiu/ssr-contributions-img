@@ -1,0 +1,32 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm install --frozen-lockfile --prod=false && pnpm -C playground build",
+  "outputDirectory": "playground/dist",
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "fonts/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/_/:username",
+      "destination": "/api?__pathname=/_/:username"
+    },
+    {
+      "source": "/svg/:username",
+      "destination": "/api?__pathname=/svg/:username"
+    },
+    {
+      "source": "/themes",
+      "destination": "/api?__pathname=/themes"
+    },
+    {
+      "source": "/config",
+      "destination": "/api?__pathname=/config"
+    },
+    {
+      "source": "/contributions/:username",
+      "destination": "/api?__pathname=/contributions/:username"
+    }
+  ]
+}
