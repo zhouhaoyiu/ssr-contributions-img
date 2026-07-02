@@ -21,15 +21,20 @@
   <span>Real-time rendering example：</span>
   <br />
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=svg&weeks=50&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=svg&weeks=50">
-    <img alt="" src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=svg&weeks=50" max-height="150">
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=true&gradient=true&legend=true&legendPosition=bottom&legendDirection=row">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=false&gradient=true&legend=true&legendPosition=bottom&legendDirection=row">
+    <img alt="" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=false&gradient=true&legend=true&legendPosition=bottom&legendDirection=row" max-height="150">
   </picture>
 </div>
 
 ## Playground
 
-Now you can config and preview your contribution wall in the [Playground](https://ssr-contributions-svg.vercel.app/)
+The playground is the Vue preview UI under `playground/`. Run it with the Nest API:
+
+```shell
+pnpm start:dev
+VITE_DEV_SERVER_PROXY_TARGET=http://localhost:3000 pnpm -C playground dev
+```
 
 <div align="center">
   <picture>
@@ -37,6 +42,22 @@ Now you can config and preview your contribution wall in the [Playground](https:
     <img src="./assets/anim/playground-en-light.gif">
   </picture>
 </div>
+
+## Cloudflare Worker
+
+The deployed Worker is SVG-only and is meant for README/profile images:
+
+```text
+https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/{username}?chart=3dbar&format=svg
+```
+
+Example with tall bars and a legend:
+
+```text
+https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=false&gradient=true&legend=true&legendPosition=bottom&legendDirection=row
+```
+
+Use the Nest server or Vercel deployment when you need the full playground API, `/themes`, `png`, `jpeg`, or `html` output.
 
 ## Principle of 3dbar implementation
 
@@ -368,9 +389,9 @@ Enable animation by passing <code>animation</code> property, available values:
   ```
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg">
-    <img src="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg&dark=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg" width="400" />
   </picture>
 
 - `raise` (apper only)
@@ -380,9 +401,9 @@ Enable animation by passing <code>animation</code> property, available values:
   ```
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg">
-    <img src="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg&dark=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg" width="400" />
   </picture>
 
 - `wave` (loop)
@@ -392,9 +413,9 @@ Enable animation by passing <code>animation</code> property, available values:
   ```
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg">
-    <img src="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg&dark=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg" width="400" />
   </picture>
 
 **Custome animation details**: (pass as url query parameters)
@@ -455,13 +476,13 @@ In fact, the display of the chart is determined by the `theme`, which is overrid
   - e.g.
 
     ```
-    https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&format=svg
+    https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&format=svg
     ```
 
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&format=svg&dark=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&format=svg&dark=false">
-      <img src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&format=svg" width="400" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&format=svg&dark=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&format=svg&dark=false">
+      <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&format=svg" width="400" />
     </picture>
 
 - **3dbar**
@@ -470,29 +491,27 @@ In fact, the display of the chart is determined by the `theme`, which is overrid
   - e.g.
 
     ```
-    https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg
+    https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg
     ```
 
     Stroke example:
 
     ```
-    https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg&strokeWidth=1.2&strokeColor=111827
+    https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&strokeWidth=1.2&strokeColor=111827
     ```
 
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg&dark=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg">
-      <img alt="3DBar" src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg" width="400" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&dark=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg">
+      <img alt="3DBar" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg" width="400" />
     </picture>
 
 ## Themes
 
-All avaiable themes(live update):
+Run the full Nest server and open:
 
-- `light`  
-  <img src="https://ssr-contributions-svg.vercel.app/themes?format=svg" >
-- `dark`  
-  <img src="https://ssr-contributions-svg.vercel.app/themes?format=svg&quality=0.5&dark=true" >
+- `http://localhost:3000/themes?format=svg`
+- `http://localhost:3000/themes?format=svg&dark=true`
 
 ## Examples
 
@@ -502,9 +521,12 @@ All avaiable themes(live update):
 
 ### Use as ios widget with [Scritable](https://apps.apple.com/us/app/scriptable/id1405459188)
 
+The Cloudflare Worker is SVG-only. Use a full Nest/Vercel deployment for JPEG widgets.
+
 **code example:**
 
 ```js
+const baseUrl = 'https://your-full-api.example.com';
 let [chart, widgetSize, theme, weeks] = (args.widgetParameter || '')
   .split(',')
   .map((v) => v.trim());
@@ -512,7 +534,7 @@ chart = chart || 'calendar';
 widgetSize = widgetSize || 'medium';
 theme = theme || 'green';
 const darkMode = Device.isUsingDarkAppearance();
-let url = `https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=jpeg&quality=2&theme=${theme}&widget_size=${widgetSize}&chart=${chart}&dark=${darkMode}`;
+let url = `${baseUrl}/_/zhouhaoyiu?format=jpeg&quality=2&theme=${theme}&widget_size=${widgetSize}&chart=${chart}&dark=${darkMode}`;
 
 if (weeks) url += `&weeks=${weeks}`;
 
@@ -568,15 +590,15 @@ The above script relies on the input of the `parameter` parameter, filling in `c
 - `flatten=1&format=svg`
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=1&format=svg&dark=true&theme=native">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=1&format=svg&dark=false&theme=native">
-    <img src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=1&format=svg&theme=native" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=1&format=svg&dark=true&theme=native">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=1&format=svg&dark=false&theme=native">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=1&format=svg&theme=native" width="400" />
   </picture>
 
 - `flatten=2&format=svg`
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=2&format=svg&dark=true&theme=native">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=2&format=svg&dark=false&theme=native">
-    <img src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=2&format=svg&theme=native" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=2&format=svg&dark=true&theme=native">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=2&format=svg&dark=false&theme=native">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=2&format=svg&theme=native" width="400" />
   </picture>

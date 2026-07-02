@@ -1,16 +1,33 @@
-# Vue 3 + TypeScript + Vite
+# Playground
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Vue UI for previewing and copying contribution-wall SVG URLs.
 
-## Recommended IDE Setup
+## Run
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+Start the API from the repo root:
 
-## Type Support For `.vue` Imports in TS
+```shell
+pnpm start:dev
+```
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+Start the playground:
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+```shell
+VITE_DEV_SERVER_PROXY_TARGET=http://localhost:3000 pnpm -C playground dev
+```
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+For a remote API:
+
+```shell
+VITE_API_BASE_URL=https://your-api.example.com pnpm -C playground dev
+```
+
+`VITE_GITHUB_REPO_URL` changes the GitHub link in the playground header.
+
+## Build
+
+```shell
+pnpm -C playground build
+```
+
+The Cloudflare Worker deployment is SVG-only. It is for README/profile images, not the full playground API.

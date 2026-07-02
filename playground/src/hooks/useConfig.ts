@@ -41,7 +41,7 @@ const playgroundDefaults = {
 
 const { width } = useWindowSize();
 const locale = useStorage<Locale>('locale', localeOptions[0].value);
-const username = useStorage('githubUsername', 'CatsJuice');
+const username = useStorage('githubUsername', 'zhouhaoyiu');
 const config = ref([] as ConfigItem[]);
 const loadingConfig = ref(false);
 const loadingContribution = ref(false);
@@ -207,15 +207,18 @@ const configTabs = computed(() =>
 );
 
 const query = computed(() =>
-  configItems.value.reduce((prev, curr) => {
-    const value = state.value[curr.key];
-    if (isEmptyValue(value) || isOmittableQueryValue(value)) return prev;
+  configItems.value.reduce(
+    (prev, curr) => {
+      const value = state.value[curr.key];
+      if (isEmptyValue(value) || isOmittableQueryValue(value)) return prev;
 
-    return {
-      ...prev,
-      [curr.key]: `${value}`,
-    };
-  }, {} as Record<string, string>),
+      return {
+        ...prev,
+        [curr.key]: `${value}`,
+      };
+    },
+    {} as Record<string, string>,
+  ),
 );
 
 const queryStr = computed(() =>

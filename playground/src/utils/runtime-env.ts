@@ -1,10 +1,12 @@
 import { validatePath } from '../components/utils/validatePath';
 
 const DEFAULT_GITHUB_REPO_URL =
-  'https://github.com/CatsJuice/ssr-contributions-img';
+  'https://github.com/zhouhaoyiu/ssr-contributions-img';
 
 export function getApiBaseUrl() {
-  return import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? '/api' : '/');
+  return (
+    import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? '/api' : '/')
+  );
 }
 
 export function getApiPath(path: string) {

@@ -21,15 +21,20 @@
   <span>实时渲染示例：</span>
   <br />
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=svg&weeks=50&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=svg&weeks=50">
-    <img alt="" src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=svg&weeks=50" max-height="150">
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=true&gradient=true&legend=true&legendPosition=bottom&legendDirection=row">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=false&gradient=true&legend=true&legendPosition=bottom&legendDirection=row">
+    <img alt="" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=false&gradient=true&legend=true&legendPosition=bottom&legendDirection=row" max-height="150">
   </picture>
 </div>
 
 ## 在线预览与配置
 
-现在你可以通过 [Playground](https://ssr-contributions-svg.vercel.app/) 在线预览与配置。
+Playground 是 `playground/` 下的 Vue 预览界面，需要和 Nest API 一起运行：
+
+```shell
+pnpm start:dev
+VITE_DEV_SERVER_PROXY_TARGET=http://localhost:3000 pnpm -C playground dev
+```
 
 <div align="center">
   <picture>
@@ -37,6 +42,22 @@
     <img src="./assets/anim/playground-zh-light.gif">
   </picture>
 </div>
+
+## Cloudflare Worker
+
+已部署的 Worker 只返回 SVG，适合放在 GitHub README 或个人主页里：
+
+```text
+https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/{username}?chart=3dbar&format=svg
+```
+
+带柱高和图例的示例：
+
+```text
+https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=42&flatten=0&animation=wave&theme=prism_break&dark=false&gradient=true&legend=true&legendPosition=bottom&legendDirection=row
+```
+
+如果需要完整 Playground API、`/themes`、`png`、`jpeg` 或 `html` 输出，继续使用 Nest 服务或 Vercel 部署。
 
 ## 实现原理
 
@@ -370,9 +391,9 @@ Enable animation by passing <code>animation</code> property, available values:
   ```
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg">
-    <img src="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg&dark=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=fall&format=svg" width="400" />
   </picture>
 
 - `raise` (仅入场动画)
@@ -382,9 +403,9 @@ Enable animation by passing <code>animation</code> property, available values:
   ```
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg">
-    <img src="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg&dark=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=raise&format=svg" width="400" />
   </picture>
 
 - `wave` (循环播放)
@@ -394,9 +415,9 @@ Enable animation by passing <code>animation</code> property, available values:
   ```
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg&dark=true">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg">
-    <img src="https://ssr-contributions-svg.vercel.app/_/Catsjuice?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg&dark=true">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&weeks=20&flatten=1&animation=wave&format=svg" width="400" />
   </picture>
 
 **自定义动画细节**: (在 url 中作为 `query` 参数传递)
@@ -457,13 +478,13 @@ Enable animation by passing <code>animation</code> property, available values:
   - 示例
 
     ```
-    https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&quality=0.3&format=svg
+    https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&quality=0.3&format=svg
     ```
 
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&format=svg&dark=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&format=svg&dark=false">
-      <img src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=calendar&format=svg" width="400" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&format=svg&dark=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&format=svg&dark=false">
+      <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=calendar&format=svg" width="400" />
     </picture>
 
 - **3dbar**
@@ -472,30 +493,27 @@ Enable animation by passing <code>animation</code> property, available values:
   - 示例
 
     ```
-    https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&quality=0.3&format=svg&gradient=true
+    https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&quality=0.3&format=svg&gradient=true
     ```
 
     描边示例：
 
     ```
-    https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg&strokeWidth=1.2&strokeColor=111827
+    https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&strokeWidth=1.2&strokeColor=111827
     ```
 
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg&dark=true">
-      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg">
-      <img alt="3DBar" src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&format=svg" width="400" />
+      <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&dark=true">
+      <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg">
+      <img alt="3DBar" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg" width="400" />
     </picture>
 
 ## 主题
 
-所有可用主题（实时更新）:
+运行完整 Nest 服务后访问：
 
-- `亮色模式`  
-  <img src="https://ssr-contributions-svg.vercel.app/themes?format=svg&quality=0.5" >
-- `暗黑模式`
-
-  <img src="https://ssr-contributions-svg.vercel.app/themes?format=svg&quality=0.5&dark=true" >
+- `http://localhost:3000/themes?format=svg`
+- `http://localhost:3000/themes?format=svg&dark=true`
 
 ## 使用场景
 
@@ -505,17 +523,20 @@ Enable animation by passing <code>animation</code> property, available values:
 
 ### 作为 ios 小组件使用 [Scritable](https://apps.apple.com/cn/app/scriptable/id1405459188)
 
+Cloudflare Worker 只返回 SVG。如果要做 JPEG 小组件，请使用完整 Nest/Vercel 部署。
+
 **示例代码:**
 
 ```js
+const baseUrl = 'https://your-full-api.example.com';
 let [chart, widgetSize, theme, weeks] = (args.widgetParameter || '')
   .split(',')
   .map((v) => v.trim());
 chart = chart || 'calendar';
-widgetSize = widgetSize || 'midium';
+widgetSize = widgetSize || 'medium';
 theme = theme || 'green';
 const darkMode = Device.isUsingDarkAppearance();
-let url = `https://ssr-contributions-svg.vercel.app/_/CatsJuice?format=jpeg&quality=2&theme=${theme}&widget_size=${widgetSize}&chart=${chart}&dark=${darkMode}`;
+let url = `${baseUrl}/_/zhouhaoyiu?format=jpeg&quality=2&theme=${theme}&widget_size=${widgetSize}&chart=${chart}&dark=${darkMode}`;
 
 if (weeks) url += `&weeks=${weeks}`;
 
@@ -571,15 +592,15 @@ async function createWidget() {
 - `flatten=1&format=svg`
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=1&format=svg&dark=true&theme=native">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=1&format=svg&dark=false&theme=native">
-    <img src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=1&format=svg&theme=native" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=1&format=svg&dark=true&theme=native">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=1&format=svg&dark=false&theme=native">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=1&format=svg&theme=native" width="400" />
   </picture>
 
 - `flatten=2&format=svg`
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=2&format=svg&dark=true&theme=native">
-    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=2&format=svg&dark=false&theme=native">
-    <img src="https://ssr-contributions-svg.vercel.app/_/CatsJuice?chart=3dbar&flatten=2&format=svg&theme=native" width="400" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=2&format=svg&dark=true&theme=native">
+    <source media="(prefers-color-scheme: light)" srcset="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=2&format=svg&dark=false&theme=native">
+    <img src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&flatten=2&format=svg&theme=native" width="400" />
   </picture>
