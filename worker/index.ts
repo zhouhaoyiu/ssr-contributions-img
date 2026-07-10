@@ -83,7 +83,7 @@ export default {
     const username = getUsername(url.pathname);
     if (!username) return new Response('Not found', { status: 404 });
 
-    const cache = caches.default;
+    const cache = (caches as CacheStorage & { default: Cache }).default;
     const cached = await cache.match(request);
     if (cached) return cached;
 
