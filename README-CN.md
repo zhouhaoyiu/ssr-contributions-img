@@ -1,3 +1,3 @@
-# 中文文档
+# ssr-contributions-img
 
-中文文档已经合并到仓库首页，请阅读 [README.md](./README.md)。
+[简体中文](./README.md) · [English](./README-EN.md) · [日本語](./README-JA.md)
