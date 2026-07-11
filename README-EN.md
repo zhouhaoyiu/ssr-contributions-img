@@ -152,6 +152,8 @@ The endpoint exposes 28 query parameters in three groups.
 | 3D bars | 11 | `gap`, `scale`, `light`, `gradient`, `flatten`, `legend`, `legendPosition`, `legendDirection`, `foregroundColor`, `strokeWidth`, `strokeColor` |
 | Animation | 8 | `animation`, `animation_duration`, `animation_delay`, `animation_amplitude`, `animation_frequency`, `animation_wave_center`, `animation_loop`, `animation_reverse` |
 
+Set `tz` directly in the URL. The playground shows `animation_loop` and `animation_reverse` only for the animation modes that use them, so all 28 options are not visible at once.
+
 ### Common options
 
 | Parameter | Values | Default | Description |
