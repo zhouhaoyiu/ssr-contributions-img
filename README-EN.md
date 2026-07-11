@@ -60,7 +60,11 @@ Replace `zhouhaoyiu` in the URL with another GitHub username. The Worker caches 
 
 The Vue playground previews the chart, switches themes, edits parameters, downloads SVG files, and copies chart links.
 
-![Vue playground configuration](./assets/screenshots/playground-zhouhaoyiu.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/screenshots/playground-en-dark.gif">
+  <source media="(prefers-color-scheme: light)" srcset="./assets/screenshots/playground-en-light.gif">
+  <img alt="General, 3D Bar, and Animation panels in the Vue playground" src="./assets/screenshots/playground-en-light.gif" width="100%">
+</picture>
 
 ## Examples
 
@@ -96,6 +100,34 @@ https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&fo
 https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&format=svg&weeks=36&colors=0b132b,1c2541,3a506b,5bc0be,6fffe9&gradient=true
 ```
 
+### Animation examples
+
+<table>
+  <tr>
+    <th><code>fall</code></th>
+    <th><code>raise</code></th>
+    <th><code>wave</code></th>
+  </tr>
+  <tr>
+    <td><img alt="fall animation" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&amp;format=svg&amp;weeks=20&amp;flatten=1&amp;theme=prism_break&amp;gradient=true&amp;animation=fall" width="300"></td>
+    <td><img alt="raise animation" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&amp;format=svg&amp;weeks=20&amp;flatten=1&amp;theme=prism_break&amp;gradient=true&amp;animation=raise" width="300"></td>
+    <td><img alt="wave animation" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&amp;format=svg&amp;weeks=20&amp;flatten=1&amp;theme=prism_break&amp;gradient=true&amp;animation=wave" width="300"></td>
+  </tr>
+</table>
+
+### Two flatten modes
+
+<table>
+  <tr>
+    <th><code>flatten=1</code></th>
+    <th><code>flatten=2</code></th>
+  </tr>
+  <tr>
+    <td><img alt="All cubes flattened" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&amp;format=svg&amp;weeks=30&amp;flatten=1&amp;theme=native" width="440"></td>
+    <td><img alt="Flattened chart without empty cubes" src="https://ssr-contributions-img.zhouhaoyiu.workers.dev/_/zhouhaoyiu?chart=3dbar&amp;format=svg&amp;weeks=30&amp;flatten=2&amp;theme=native" width="440"></td>
+  </tr>
+</table>
+
 ## Runtime options
 
 | Capability | Cloudflare Worker | Nest API |
@@ -111,6 +143,14 @@ The Worker reads GitHub's public contribution page. The Nest API uses the same s
 ## Configuration
 
 Pass options in the URL query string. Booleans use `true` or `false`. Hex colors should omit `#` so the URL fragment marker does not interfere with parsing.
+
+The endpoint exposes 28 query parameters in three groups.
+
+| Group | Count | Parameters |
+| --- | ---: | --- |
+| General | 9 | `chart`, `theme`, `colors`, `dark`, `widget_size`, `weeks`, `tz`, `format`, `quality` |
+| 3D bars | 11 | `gap`, `scale`, `light`, `gradient`, `flatten`, `legend`, `legendPosition`, `legendDirection`, `foregroundColor`, `strokeWidth`, `strokeColor` |
+| Animation | 8 | `animation`, `animation_duration`, `animation_delay`, `animation_amplitude`, `animation_frequency`, `animation_wave_center`, `animation_loop`, `animation_reverse` |
 
 ### Common options
 
