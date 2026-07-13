@@ -11,7 +11,7 @@ const { config, locale, previewDataKey, renderPreviewSvg } = useConfig();
 
 const props = defineProps({
   cfg: {
-    type: Object as PropType<Record<string, any>>,
+    type: Object as PropType<Record<string, unknown>>,
     required: true,
   },
   active: Boolean,
@@ -35,7 +35,7 @@ const query = computed(() => {
       ...prev,
       [curr.key]: `${value}`,
     };
-  }, {} as Record<string, any>);
+  }, {} as Record<string, unknown>);
 });
 const svgCode = ref('');
 let renderToken = 0;

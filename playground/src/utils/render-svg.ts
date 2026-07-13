@@ -25,7 +25,7 @@ export function buildGithubUserFromContributionResponse(
 
 export async function renderContributionResponseSvg(
   response: ContributionResponse,
-  config: Record<string, any> = {},
+  config: Record<string, unknown> = {},
 ) {
   return renderContributionSvg(
     buildGithubUserFromContributionResponse(response),
@@ -33,6 +33,6 @@ export async function renderContributionResponseSvg(
   );
 }
 
-export async function renderMockContributionSvg(config: Record<string, any> = {}) {
+export async function renderMockContributionSvg(config: Record<string, unknown> = {}) {
   return renderThemePreviewSvg(config as RenderContributionConfig);
 }

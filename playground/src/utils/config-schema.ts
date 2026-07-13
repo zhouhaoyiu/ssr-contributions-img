@@ -46,7 +46,7 @@ function sortByOrder<T extends { order?: number; label?: string }>(
 
 export function resolveConfigItems(
   schema: ConfigItem[],
-  values: Record<string, any>,
+  values: Record<string, unknown>,
   locale: Locale,
 ): LocalizedConfigItem[] {
   const items: LocalizedConfigItem[] = [];

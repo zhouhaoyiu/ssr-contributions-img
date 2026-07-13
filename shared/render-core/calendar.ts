@@ -20,6 +20,19 @@ type EChartsCore = {
   };
 };
 
+type CalendarRenderItemParams = {
+  coordSys: {
+    cellWidth: number;
+    cellHeight: number;
+  };
+};
+
+type CalendarRenderItemApi = {
+  coord: (value: unknown) => number[];
+  value: (dimension: number) => unknown;
+  visual: (type: 'color') => string;
+};
+
 let echartsPromise: Promise<EChartsCore> | null = null;
 const dateFormatters = new Map<string, Intl.DateTimeFormat>();
 
@@ -108,11 +121,14 @@ export function calendarProcessor(
       {
         type: 'custom',
         coordinateSystem: 'calendar',
-        renderItem: function (params: any, api: any) {
+        renderItem: function (
+          params: CalendarRenderItemParams,
+          api: CalendarRenderItemApi,
+        ) {
           const cellPoint = api.coord(api.value(0));
           const cellWidth = params.coordSys.cellWidth;
           const cellHeight = params.coordSys.cellHeight;
-          const value = api.value(1);
+          const value = Number(api.value(1));
           if (isNaN(cellPoint[0]) || isNaN(cellPoint[1])) return;
           return {
             z2: 100,

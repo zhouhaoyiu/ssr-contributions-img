@@ -30,7 +30,7 @@ export interface ConfigItem {
   key: keyof ConfigSvgQueryDto;
   label: Record<Locale, string>;
   type: 'enum' | 'int' | 'float' | 'colors' | 'color' | 'boolean' | 'point';
-  default?: any;
+  default?: unknown;
   required?: boolean;
   description?: Record<Locale, string>;
   optioins?: Choice[];
@@ -43,7 +43,7 @@ interface Choice {
   value: string;
   label: Record<Locale, string>;
   config?: ConfigItem[];
-  info?: Record<string, any>;
+  info?: Record<string, unknown>;
 }
 
 function buildThemeToneInfo(themeName: string) {

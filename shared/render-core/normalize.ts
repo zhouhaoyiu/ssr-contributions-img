@@ -1,6 +1,7 @@
 import {
   Bar3DAnimation,
   ChartTpl,
+  PresetTheme,
   WidgetSize,
   Bar3DLegendDirection,
   Bar3DLegendPosition,
@@ -103,7 +104,7 @@ export function normalizeRenderConfig(
     ? colors
     : theme === 'random'
     ? getRandomTheme(dark)
-    : getTheme(theme as any, dark);
+    : getTheme(theme as PresetTheme, dark);
   const defaultWeeks =
     {
       [WidgetSize.LARGE]: 40,

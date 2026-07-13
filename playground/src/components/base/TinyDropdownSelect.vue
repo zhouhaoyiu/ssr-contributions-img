@@ -8,7 +8,7 @@ const props = defineProps({
     required: true,
   },
   options: {
-    type: Array as PropType<any[]>,
+    type: Array as PropType<unknown[]>,
     default: () => [],
   },
 });
@@ -16,7 +16,7 @@ defineEmits(['update:modelValue']);
 
 const activeItem = computed(() => {
   return (
-    props.options.find((item: any) => item.value === props.modelValue) ||
+    props.options.find((item: unknown) => item.value === props.modelValue) ||
     props.options[0] || { label: '' }
   );
 });

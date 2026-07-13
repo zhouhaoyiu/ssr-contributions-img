@@ -45,8 +45,8 @@ const presets = computed(() => {
   );
 });
 
-function isActive(cfg: Record<string, any>) {
-  const filter = (v: any) => v !== undefined && v !== null && v !== '';
+function isActive(cfg: Record<string, unknown>) {
+  const filter = (v: unknown) => v !== undefined && v !== null && v !== '';
   return hashObject(state.value, filter) === hashObject(cfg, filter);
 }
 </script>

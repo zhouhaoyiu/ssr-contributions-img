@@ -1,4 +1,5 @@
-import type { Choice, ConfigItem, ConfigTab, Locale } from '../types/config';
+import type { ContributionResponse } from '@render-core';
+import type { Choice, ConfigItem, LocalizedText, Locale } from '../types/config';
 
 import { Notify } from 'quasar';
 import { computed, ref, watch } from 'vue';
@@ -48,11 +49,11 @@ const loadingContribution = ref(false);
 const renderingSvg = ref(false);
 const svgCode = ref('');
 const themeOptions = ref([] as Choice[]);
-const contributionData = ref<any>(null);
+const contributionData = ref<ContributionResponse | null>(null);
 
 const state = useStorage('__cfgState', {
   ...playgroundDefaults,
-} as Record<string, any>);
+} as Record<string, unknown>);
 
 const initialized = ref(false);
 let initPromise: Promise<void> | null = null;
@@ -70,7 +71,7 @@ function normalizeColor(color: string) {
   return `#${value}`;
 }
 
-function localizeText(value: any, targetLocale = locale.value) {
+function localizeText(value: LocalizedText | undefined, targetLocale = locale.value) {
   if (!value) return '';
   if (typeof value === 'string') return value;
   return value[targetLocale] || value.en || Object.values(value)[0] || '';
@@ -108,7 +109,7 @@ function resolveDarkFlag(value: unknown, fallback = false) {
   return fallback;
 }
 
-function buildLocalRenderConfig(configLike: Record<string, any>) {
+function buildLocalRenderConfig(configLike: Record<string, unknown>) {
   const explicitColors = parseColorsValue(configLike.colors);
   if (explicitColors.length) {
     return {
@@ -330,8 +331,8 @@ async function initConfig() {
     config.value = await getConfig();
     applyDefaults(config.value);
     readThemeOptionList();
-  } catch (error: any) {
-    notifyError(error?.message || 'Failed to load config');
+  } catch (error: unknown) {
+    notifyError(getErrorMessage(error, 'Failed to load config'));
   } finally {
     loadingConfig.value = false;
   }
@@ -357,6 +358,10 @@ function notifyError(message: string) {
   });
 }
 
+function getErrorMessage(error: unknown, fallback: string) {
+  return error instanceof Error ? error.message : fallback;
+}
+
 function scheduleSvgRender(delay = CONFIG_RENDER_DEBOUNCE_MS) {
   clearRenderTimer();
 
@@ -378,9 +383,9 @@ function scheduleSvgRender(delay = CONFIG_RENDER_DEBOUNCE_MS) {
       );
       if (sequence !== renderSequence) return;
       svgCode.value = svg;
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (sequence !== renderSequence) return;
-      notifyError(error?.message || 'Failed to render SVG');
+      notifyError(getErrorMessage(error, 'Failed to render SVG'));
     } finally {
       if (sequence === renderSequence) {
         renderingSvg.value = false;
@@ -414,11 +419,11 @@ function scheduleContributionsFetch(delay = USERNAME_RENDER_DEBOUNCE_MS) {
       if (fetchController !== controller) return;
       contributionData.value = response;
       scheduleSvgRender(0);
-    } catch (error: any) {
-      if (error?.name === 'AbortError') return;
+    } catch (error: unknown) {
+      if (error instanceof Error && error.name === 'AbortError') return;
       if (fetchController !== controller) return;
       contributionData.value = null;
-      notifyError(error?.message || 'Failed to load contributions');
+      notifyError(getErrorMessage(error, 'Failed to load contributions'));
     } finally {
       if (fetchController === controller) {
         loadingContribution.value = false;
@@ -458,7 +463,7 @@ watch(previewDataKey, () => {
   previewSvgCache.clear();
 });
 
-async function renderPreviewSvg(configLike: Record<string, any>) {
+async function renderPreviewSvg(configLike: Record<string, unknown>) {
   const localConfig = buildLocalRenderConfig(configLike);
   const key = stableSerialize({
     data: previewDataKey.value,
@@ -488,7 +493,7 @@ function renderThemePreview(theme: string) {
   });
 }
 
-function usePreset(newState: Record<string, any>) {
+function usePreset(newState: Record<string, unknown>) {
   state.value = {
     ...playgroundDefaults,
     ...newState,

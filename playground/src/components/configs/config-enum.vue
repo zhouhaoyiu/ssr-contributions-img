@@ -23,7 +23,7 @@ const finalOptions = computed(() =>
     ? props.options
     : [
         defaultOption.value,
-        ...props.options.map((opt: any) => {
+        ...props.options.map((opt: unknown) => {
           const colors = [...(readColors(opt) || [])];
           return { ...opt, _colors: colors.reverse().slice(0, 4).reverse() };
         }),
@@ -32,13 +32,13 @@ const finalOptions = computed(() =>
 
 const checkedOption = computed(() => {
   return finalOptions.value.find(
-    (opt: any) => opt.value === props.modelValue,
-  ) as any;
+    (opt: unknown) => opt.value === props.modelValue,
+  ) as unknown;
 });
 
 const popupContentClass = 'q-pa-xs menu-glass-surface';
 
-function readColors(cfg: any) {
+function readColors(cfg: unknown) {
   return (cfg?.info?.colors || {})[activeDarkMode.value ? 'dark' : 'light'];
 }
 </script>

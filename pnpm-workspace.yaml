@@ -15,6 +15,7 @@ onlyBuiltDependencies:
   - unrs-resolver
   - vue-demi
 allowBuilds:
+  '@swc/core': true
   '@fortawesome/fontawesome-free': true
   '@nestjs/core': true
   '@parcel/watcher': true

@@ -34,7 +34,7 @@ describe('GithubContributionsService', () => {
     };
 
     const loader = jest
-      .spyOn(service as any, 'loadUserContributions')
+      .spyOn(service as unknown, 'loadUserContributions')
       .mockResolvedValue(result);
 
     const first = await service.getUserContributions('CatsJuice');
@@ -54,11 +54,11 @@ describe('GithubContributionsService', () => {
     );
 
     jest
-      .spyOn(service as any, 'fetchUserFromProfileContributionGraph')
+      .spyOn(service as unknown, 'fetchUserFromProfileContributionGraph')
       .mockResolvedValue(null);
 
     await expect(
-      (service as any).loadUserContributions('CatsJuice'),
+      (service as unknown).loadUserContributions('CatsJuice'),
     ).rejects.toBeInstanceOf(ServiceUnavailableException);
   });
 });

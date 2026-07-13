@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { PlaygroundAccessGuard } from './playground-access.guard';
 import { PlaygroundRateLimitService } from '../services/playground-rate-limit.service';
 
-function createGuard(config: Record<string, any>) {
+function createGuard(config: Record<string, unknown>) {
   const configService = new ConfigService(config);
   const rateLimitService = new PlaygroundRateLimitService();
   return new PlaygroundAccessGuard(configService, rateLimitService);
@@ -27,7 +27,7 @@ function createContext(
     switchToHttp: () => ({
       getRequest: () => request,
     }),
-  } as any;
+  } as unknown;
 }
 
 describe('PlaygroundAccessGuard', () => {

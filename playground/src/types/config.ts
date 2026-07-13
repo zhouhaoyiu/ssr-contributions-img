@@ -12,7 +12,7 @@ export interface ThemeToneInfo {
 export interface ThemeChoiceInfo {
   colors?: Record<'dark' | 'light', string[]>;
   primaryTones?: ThemeToneInfo[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface ConfigPanelSlot {
@@ -39,7 +39,7 @@ export interface ConfigItem {
   key: string;
   label: LocalizedText;
   type: 'enum' | 'int' | 'float' | 'colors' | 'color' | 'boolean' | 'point';
-  default?: any;
+  default?: unknown;
   required?: boolean;
   description?: LocalizedText;
   optioins?: Choice[];

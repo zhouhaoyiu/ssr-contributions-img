@@ -13,7 +13,7 @@ const points = computed(() => {
   return (props.modelValue || '0_0').split('_').map((v) => parseFloat(v));
 });
 
-function onChange(index: number, value: any) {
+function onChange(index: number, value: unknown) {
   const p = [...points.value];
   p[index] = value;
   emits('update:modelValue', p.join('_'));

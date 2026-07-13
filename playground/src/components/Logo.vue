@@ -10,11 +10,11 @@ const canvas = ref();
 async function draw() {
   clear();
   const colors = activeTheme.value.colors || [];
-  const obelisk = (window as any)['obelisk'];
+  const obelisk = (window as unknown)['obelisk'];
   if (!obelisk?.Point) return;
   const point = new obelisk.Point(27, 28);
   const pixelView = new obelisk.PixelView(canvas.value, point);
-  const cube = (options: any) => {
+  const cube = (options: unknown) => {
     const { x, y, z, w, l, h, color } = options;
     const dimension = new obelisk.CubeDimension(w, l, h);
     const hex = color.replace(/^#/, '');
@@ -53,7 +53,7 @@ async function initObelisk() {
 }
 
 function updateFavicon() {
-  let link: any = document.querySelector('link[rel="icon"]');
+  let link: unknown = document.querySelector('link[rel="icon"]');
   if (!link) {
     link = document.createElement('link');
     link.type = 'image/x-icon';

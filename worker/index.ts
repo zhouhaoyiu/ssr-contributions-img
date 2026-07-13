@@ -7,6 +7,10 @@ import {
 
 const cacheTtlSeconds = 300;
 
+interface WorkerExecutionContext {
+  waitUntil(promise: Promise<unknown>): void;
+}
+
 async function loadUser(username: string) {
   const { years, startDate, endDate } = getContributionYearsForProfileWindow();
   const pages = await Promise.all(
@@ -65,7 +69,7 @@ function getRenderConfig(searchParams: URLSearchParams) {
 }
 
 export default {
-  async fetch(request: Request, _env: unknown, ctx: any) {
+  async fetch(request: Request, _env: unknown, ctx: WorkerExecutionContext) {
     if (request.method !== 'GET' && request.method !== 'HEAD') {
       return new Response('Method not allowed', { status: 405 });
     }
@@ -102,7 +106,7 @@ export default {
       chart: '3dbar',
       format: 'svg',
       ...getRenderConfig(url.searchParams),
-    } as any);
+    } as unknown);
 
     const response = new Response(svg, {
       headers: {

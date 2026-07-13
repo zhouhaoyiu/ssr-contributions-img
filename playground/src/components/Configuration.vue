@@ -31,7 +31,7 @@ const { state, locale, username, configTabs, localeOptions, loadingConfig } =
   useConfig();
 
 const activeTab = ref('');
-const scrollShell = ref<any>(null);
+const scrollShell = ref<unknown>(null);
 const scrollTarget = shallowRef<HTMLElement | null>(null);
 const scrollFadeTop = ref(0);
 const scrollFadeBottom = ref(0);
@@ -59,7 +59,7 @@ watch(
   { immediate: true },
 );
 
-function resolveComponent(cfg: any) {
+function resolveComponent(cfg: unknown) {
   if (cfg.key === 'theme') return ConfigTheme;
   const type = cfg.type;
   if (type === 'enum') return ConfigEnum;

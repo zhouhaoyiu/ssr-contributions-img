@@ -12,7 +12,7 @@ type Args = [
 ];
 
 export function generate3dbarAnimation(...args: Args) {
-  const [weekCount, cfg, options] = args;
+  const [, cfg] = args;
   const type = cfg.animation;
   if (!type) return '';
 

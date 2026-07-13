@@ -48,7 +48,7 @@ describe('AppService', () => {
       chart: ChartTpl.BAR3D,
       theme: 'green',
       weeks: 1,
-    } as any;
+    } as unknown;
 
     const first = await service.generateChartSvgCode(user, config);
     const second = await service.generateChartSvgCode(user, config);
@@ -61,7 +61,7 @@ describe('AppService', () => {
     const res = {
       header: jest.fn(),
       send: jest.fn(),
-    } as any;
+    } as unknown;
 
     await service.resolveResponseByFormat(res, '<svg></svg>', {
       format: OutputFormat.SVG,

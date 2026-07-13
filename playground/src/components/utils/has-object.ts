@@ -1,14 +1,18 @@
-export function sortObj(obj: any, filter = (v: any) => true): any {
-  if (Object.prototype.toString.call(obj) === '[object Array]')
-    return (obj as Array<unknown>).sort().map((el) => sortObj(el, filter));
-  else if (Object.prototype.toString.call(obj) === '[object Object]') {
-    const keys = Object.keys(obj).sort();
+export function sortObj(
+  obj: unknown,
+  filter: (value: unknown) => boolean = () => true,
+): unknown {
+  if (Array.isArray(obj))
+    return [...obj].sort().map((el) => sortObj(el, filter));
+  else if (obj && typeof obj === 'object') {
+    const source = obj as Record<string, unknown>;
+    const keys = Object.keys(source).sort();
     return keys.reduce((prev, curr) => {
-      prev[curr] = sortObj(obj[curr], filter);
+      prev[curr] = sortObj(source[curr], filter);
       return prev;
-    }, {} as any);
+    }, {} as Record<string, unknown>);
   } else if (filter(obj)) return obj;
 }
 
-export const hashObject = (obj: unknown, filter?: (v: any) => boolean) =>
+export const hashObject = (obj: unknown, filter?: (v: unknown) => boolean) =>
   JSON.stringify(sortObj(obj, filter));

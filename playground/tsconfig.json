@@ -4,8 +4,7 @@
     "ignoreDeprecations": "6.0",
     "useDefineForClassFields": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "baseUrl": ".",
+    "moduleResolution": "Bundler",
     "paths": {
       "@render-core": ["../shared/render-core/index.ts"],
       "@render-core/*": ["../shared/render-core/*"]

@@ -103,7 +103,7 @@ function buildToneInfo(toneKey: string): ThemeToneInfo | null {
   };
 }
 
-function readPrimaryTones(option: Choice | Record<string, any>): ThemeToneInfo[] {
+function readPrimaryTones(option: Choice | Record<string, unknown>): ThemeToneInfo[] {
   const tones = option?.info?.primaryTones;
   if (Array.isArray(tones) && tones.length) {
     return tones.filter(
@@ -123,7 +123,7 @@ function getToneName(tone: ThemeToneInfo) {
   return getLocalizedText(tone.name);
 }
 
-function getToneClassNames(option: Choice | Record<string, any>) {
+function getToneClassNames(option: Choice | Record<string, unknown>) {
   return readPrimaryTones(option).map((tone) => `tone-${tone.key}`);
 }
 
@@ -291,7 +291,7 @@ function selectTheme(value: string) {
   dialog.value = false;
 }
 
-function getThemePalette(option: Choice | Record<string, any>) {
+function getThemePalette(option: Choice | Record<string, unknown>) {
   const mode = activeDarkMode.value ? 'dark' : 'light';
   const palette = option?.info?.colors?.[mode];
   if (Array.isArray(palette)) return palette.filter(Boolean);

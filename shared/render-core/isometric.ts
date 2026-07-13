@@ -38,7 +38,7 @@ function escapeXmlAttribute(value: unknown) {
 
 function el(
   name: string,
-  options: Record<string, any> = {},
+  options: Record<string, unknown> = {},
   children: string[] = [],
 ): string {
   return `<${name} ${Object.entries(options)

@@ -22,6 +22,18 @@ type ElementStub = {
   removeEventListener: () => void;
 };
 
+type SsrGlobalScope = {
+  window?: {
+    navigator?: { userAgent: string };
+  };
+  navigator?: { userAgent: string };
+  document?: {
+    body: ElementStub;
+    documentElement: { style: Record<string, unknown> };
+    createElement: () => ElementStub;
+  };
+};
+
 function createCanvasContextStub(): CanvasContextStub {
   return {
     font: '',
@@ -72,7 +84,7 @@ function createElementStub(): ElementStub {
   };
 }
 
-const globalScope = globalThis as any;
+const globalScope = globalThis as unknown as SsrGlobalScope;
 
 if (!globalScope.window) {
   globalScope.window = {};
