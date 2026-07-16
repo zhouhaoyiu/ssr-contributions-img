@@ -1,5 +1,5 @@
 import { ConfigService } from '@nestjs/config';
-import { ServiceUnavailableException } from '@nestjs/common';
+import { NotFoundException, ServiceUnavailableException } from '@nestjs/common';
 
 import { GithubContributionsService } from './github-contributions.service';
 
@@ -60,5 +60,19 @@ describe('GithubContributionsService', () => {
     await expect(
       (service as unknown).loadUserContributions('CatsJuice'),
     ).rejects.toBeInstanceOf(ServiceUnavailableException);
+  });
+
+  it.each([
+    '../api',
+    'user@example.com',
+    '-invalid',
+    'invalid-',
+    'a'.repeat(40),
+  ])('rejects invalid GitHub username %s', async (username) => {
+    const service = new GithubContributionsService(new ConfigService());
+
+    await expect(service.getUserContributions(username)).rejects.toBeInstanceOf(
+      NotFoundException,
+    );
   });
 });

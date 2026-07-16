@@ -5,6 +5,7 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 
 import { svgCode2image } from './utils/svg2image';
 import { generateHtml } from './utils/generate-html';
+import { sanitizeSvg } from './utils/sanitize-svg';
 import { OutputFormat } from './dto/base/output-format.dto';
 import { themesProcessor } from './charts/themes.processor';
 import { GithubUser } from './types/contribution.interface';
@@ -19,6 +20,12 @@ type SvgCacheEntry = {
 };
 
 const MAX_SVG_CACHE_ENTRIES = 200;
+const ACTIVE_CONTENT_POLICY =
+  "default-src 'none'; img-src data:; style-src 'unsafe-inline'; sandbox";
+
+function sanitizeResponseFilename(value: string) {
+  return value.replace(/[^a-zA-Z0-9._-]/g, '_').slice(0, 120) || 'image';
+}
 
 function stableSerialize(value: unknown): string {
   if (value === undefined) return 'undefined';
@@ -72,6 +79,11 @@ export class AppService {
       'Cache-Control',
       `public, max-age=${maxAge}, stale-while-revalidate=86400`,
     );
+  }
+
+  private setActiveContentHeaders(res: Response) {
+    res.header('Content-Security-Policy', ACTIVE_CONTENT_POLICY);
+    res.header('X-Content-Type-Options', 'nosniff');
   }
 
   /**
@@ -157,7 +169,10 @@ export class AppService {
     options: SvgResponseResolverOptions = {},
   ) {
     const { format, quality, dark } = options;
-    const filename = options.filename || `${Date.now()}`;
+    const filename = sanitizeResponseFilename(
+      options.filename || `${Date.now()}`,
+    );
+    const sanitizedSvgCode = sanitizeSvg(svgCode);
 
     const roundQuality = Math.min(
       10,
@@ -165,24 +180,25 @@ export class AppService {
     );
     const bg = this._cfgSrv.get(`theme.bg.${dark ? 'dark' : 'light'}`);
     this.setResponseCacheHeaders(res);
+    this.setActiveContentHeaders(res);
     if (format === OutputFormat.SVG) {
       res.header('Content-Type', 'image/svg+xml; charset=utf-8');
       // res.header('Content-Disposition', `inline; filename=${filename}.svg`);
-      res.send(Buffer.from(svgCode));
+      res.send(Buffer.from(sanitizedSvgCode));
     } else if (format === OutputFormat.XML) {
       res.header('Content-Type', 'application/xml;charset=utf-8');
-      res.send(svgCode);
+      res.send(sanitizedSvgCode);
     } else if (format === OutputFormat.HTML) {
       res.header('Content-Type', 'text/html;charset=utf-8');
-      res.send(generateHtml(svgCode, filename, bg));
+      res.send(generateHtml(sanitizedSvgCode, filename, bg));
     } else if (format === OutputFormat.PNG) {
       res.header('Content-Type', 'image/png;charset=utf-8');
       res.header('Content-Disposition', `inline; filename=${filename}.png`);
-      res.send(await svgCode2image(svgCode, 'png', roundQuality, bg));
+      res.send(await svgCode2image(sanitizedSvgCode, 'png', roundQuality, bg));
     } else if (format === OutputFormat.JPEG) {
       res.header('Content-Type', 'image/jpeg;charset=utf-8');
       res.header('Content-Disposition', `inline; filename=${filename}.jpg`);
-      res.send(await svgCode2image(svgCode, 'jpeg', roundQuality, bg));
+      res.send(await svgCode2image(sanitizedSvgCode, 'jpeg', roundQuality, bg));
     } else
       return this.resolveResponseByFormat(res, svgCode, {
         ...options,

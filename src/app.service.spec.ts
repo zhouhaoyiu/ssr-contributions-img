@@ -73,4 +73,36 @@ describe('AppService', () => {
       'public, max-age=60, stale-while-revalidate=86400',
     );
   });
+
+  it('removes active SVG content and escapes HTML metadata', async () => {
+    const service = createService();
+    const send = jest.fn();
+    const res = {
+      header: jest.fn(),
+      send,
+    } as unknown;
+
+    await service.resolveResponseByFormat(
+      res,
+      '<svg onload="alert(1)"><script>alert(1)</script><rect /></svg>',
+      {
+        format: OutputFormat.HTML,
+        filename: '</title><script>alert(1)</script>',
+        dark: false,
+      },
+    );
+
+    const html = send.mock.calls[0][0] as string;
+    expect(html).not.toContain('<script');
+    expect(html).not.toContain('onload');
+    expect(html).toContain('<rect');
+    expect(res.header).toHaveBeenCalledWith(
+      'Content-Security-Policy',
+      "default-src 'none'; img-src data:; style-src 'unsafe-inline'; sandbox",
+    );
+    expect(res.header).toHaveBeenCalledWith(
+      'X-Content-Type-Options',
+      'nosniff',
+    );
+  });
 });

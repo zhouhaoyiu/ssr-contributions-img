@@ -35,6 +35,15 @@ type CacheEntry = {
 };
 
 const MAX_CACHE_ENTRIES = 1000;
+const GITHUB_USERNAME_PATTERN = /^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i;
+
+function normalizeGithubUsername(username: string) {
+  const normalized = `${username || ''}`.trim();
+  if (!GITHUB_USERNAME_PATTERN.test(normalized)) {
+    throw new NotFoundException('Invalid GitHub username');
+  }
+  return normalized;
+}
 
 function parseOauthScopes(scopesHeader?: string | string[]) {
   const raw = Array.isArray(scopesHeader)
@@ -68,7 +77,8 @@ export class GithubContributionsService {
   ) {}
 
   async getUserContributions(username: string) {
-    const key = `${username || ''}`.trim().toLowerCase();
+    const normalizedUsername = normalizeGithubUsername(username);
+    const key = normalizedUsername.toLowerCase();
     const ttlMs =
       this.configService.get<number>('playground.dataCacheTtlMs') || 300000;
     const now = Date.now();
@@ -79,10 +89,12 @@ export class GithubContributionsService {
       return cached.promise;
     }
 
-    const promise = this.loadUserContributions(username).catch((error) => {
-      this.cache.delete(key);
-      throw error;
-    });
+    const promise = this.loadUserContributions(normalizedUsername).catch(
+      (error) => {
+        this.cache.delete(key);
+        throw error;
+      },
+    );
 
     this.cache.set(key, {
       expiresAt: now + ttlMs,
@@ -208,7 +220,8 @@ export class GithubContributionsService {
     const pages = await Promise.all(
       years.map(async (year) => {
         const pageUrl = new URL(
-          `https://github.com/users/${username}/contributions`,
+          `/users/${encodeURIComponent(username)}/contributions`,
+          'https://github.com',
         );
         pageUrl.searchParams.set('from', `${year}-01-01`);
         pageUrl.searchParams.set('to', `${year}-12-31`);
