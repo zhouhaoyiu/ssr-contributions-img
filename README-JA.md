@@ -241,7 +241,7 @@ http://localhost:3000/themes?format=svg&dark=true
 
 ## ローカル実行
 
-必要な環境：Node.js `22.x` または `25.x`、pnpm `11.9.0`。
+必要な環境：Node.js `22.x` または `26.x`、pnpm `11.15.1`。
 
 ```shell
 pnpm install
