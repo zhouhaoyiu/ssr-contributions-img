@@ -241,7 +241,7 @@ http://localhost:3000/themes?format=svg&dark=true
 
 ## Local development
 
-Requirements: Node.js `22.x` or `25.x`, and pnpm `11.9.0`.
+Requirements: Node.js `22.x` or `26.x`, and pnpm `11.15.1`.
 
 ```shell
 pnpm install
