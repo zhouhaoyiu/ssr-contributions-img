@@ -241,7 +241,7 @@ http://localhost:3000/themes?format=svg&dark=true
 
 ## 本地运行
 
-要求：Node.js `22.x` 或 `26.x`，pnpm `11.15.1`。
+要求：Node.js `22.x` 或 `26.x`，pnpm `11.18.0`。
 
 ```shell
 pnpm install
